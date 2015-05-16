@@ -19,7 +19,7 @@ class Digrafo(Grafo):
         return self.grau(vertice)
 
     def grau_de_recepcao(self, vertice):
-        vertice.grau_de_recepcao()
+        return vertice.grau_de_recepcao()
 
     def antecessores(self, vertice):
         return vertice.pega_antecessores()

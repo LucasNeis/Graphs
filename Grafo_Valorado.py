@@ -27,7 +27,7 @@ class Grafo_Valorado(Grafo):
         chave = vertice_1.pega_nome() + vertice_2.pega_nome()
         if chave in self._arestas:
             self._arestas[chave].remove_valor(nome_do_valor)
-            return True;
+            return True
         chave = vertice_2.pega_nome() + vertice_1.pega_nome()
         if chave in self._arestas:
             self._arestas[chave].remove_valor(nome_do_valor)
