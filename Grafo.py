@@ -6,10 +6,13 @@ class Grafo(object):
         self._arestas = {}
     
     def adiciona_vertice(self, vertice):
-        if not vertice.e_orientado():
-            self._vertices[vertice.pega_nome()] = vertice
+        if not vertice.pega_nome() in self._vertices:
+            if not vertice.e_orientado():
+                self._vertices[vertice.pega_nome()] = vertice
+            else:
+                raise Exception("Um dos vertices não é do tipo desde grafo")
         else:
-            raise Exception("Um dos vertice não é do tipo desde grafo")
+            raise Exception("Este vertice já foi adicionado")
 
     def remove_vertice(self, vertice):
         if vertice.pega_nome() in self._vertices:
