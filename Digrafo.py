@@ -5,14 +5,23 @@ class Digrafo(Grafo):
         Grafo.__init__(self)
 
     def adiciona_vertice(self, vertice):
-        if vertice.e_orientado():
-            self._vertices[vertice.pega_nome()] = vertice
+        if not vertice.pega_nome() in self._vertices:
+            if vertice.e_orientado():
+                self._vertices[vertice.pega_nome()] = vertice
+            else:
+                raise Excecao_Adicao_de_Vertice(0)
         else:
-            raise Exception("Um dos vertice não é do tipo desde grafo")
+            raise Excecao_Remocao_de_Vertice
 
     def adiciona_vertice_por_nome(self, nome):
         vertice = Vertice(nome, True)
-        self._vertices[vertice.pega_nome()] = vertice
+        if not vertice.pega_nome() in self._vertices:
+            if vertice.e_orientado():
+                self._vertices[vertice.pega_nome()] = vertice
+            else:
+                raise Excecao_Adicao_de_Vertice(0)
+        else:
+            raise Excecao_Remocao_de_Vertice
         return vertice
 
     def grau_de_emissao(self, vertice):

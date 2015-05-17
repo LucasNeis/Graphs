@@ -1,4 +1,6 @@
 from Vertice import *
+from Excecao_Adicao_de_Vertice import *
+from Excecao_Remocao_de_Vertice import *
 
 class Grafo(object):
     def __init__(self):
@@ -10,15 +12,15 @@ class Grafo(object):
             if not vertice.e_orientado():
                 self._vertices[vertice.pega_nome()] = vertice
             else:
-                raise Exception("Um dos vertices não é do tipo desde grafo")
+                raise Excecao_Adicao_de_Vertice(0)
         else:
-            raise Exception("Este vertice já foi adicionado")
+            raise Excecao_Adicao_de_Vertice(1)
 
     def remove_vertice(self, vertice):
         if vertice.pega_nome() in self._vertices:
             self.remove_vertice_por_nome(vertice.pega_nome())
         else:
-            raise Exception("Este vertice não está no grafo")
+            raise Excecao_Remocao_de_Vertice
 
     def conecta(self, vertice_1, vertice_2):
         if vertice_1.pega_nome() in self._vertices and vertice_2.pega_nome() in self._vertices:
@@ -59,15 +61,23 @@ class Grafo(object):
 
     def adiciona_vertice_por_nome(self, nome):
         vertice = Vertice(nome, False)
-        self._vertices[vertice.pega_nome()] = vertice
+        if not nome in self._vertices:
+            if not vertice.e_orientado():
+                self._vertices[vertice.pega_nome()] = vertice
+            else:
+                raise Excecao_Adicao_de_Vertice(0)
+        else:
+            raise Excecao_Adicao_de_Vertice(1)
         return vertice
 
     def remove_vertice_por_nome(self, nome):
         if not self._vertices is None:
-            for vertice in self._vertices:
-                vertice_nome = vertice.pega_nome()
-                if vertice.esta_conectado(nome):
-                    vertice.desconecta(nome)
+            if nome in self._vertices:
+                this = self._vertices[nome]
+                for vertice in self._vertices:
+                    v = self._vertices[vertice]
+                    if v.esta_conectado(this):
+                        v.desconecta(this)
             del self._vertices[nome]
 
     def busca_em_profundidade(self, atual, jv, obj):
